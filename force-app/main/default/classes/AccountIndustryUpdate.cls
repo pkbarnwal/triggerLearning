@@ -10,7 +10,6 @@ public with sharing class AccountIndustryUpdate {
              acc.Industry = 'Education';
             if(String.isBlank(acc.Description)){
                acc.Description = 'Account Description is Blank';
-
             }
         }
     }
