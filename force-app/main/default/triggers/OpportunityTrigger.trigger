@@ -5,8 +5,9 @@ trigger OpportunityTrigger on Opportunity (before insert) {
             accId.add(Opp.AccountId);
          }
     }
-    List<Account> accList = [SELECT Id, Name, Description FROM Account 
-                                    WHERE Id IN :  accId]; // ABC, XYZ
+
+    Map<Id, Account> accMap = new Map<Id, Account>([SELECT Id, Name, Description FROM Account 
+                                    WHERE Id IN :  accId]);
     
     for(Opportunity opp : Trigger.New){   // Salesforce.com ---> ABC, Google.com ----> XYZ
          if(opp.Amount != null && opp.Discount_Percent__c != null){
@@ -16,7 +17,7 @@ trigger OpportunityTrigger on Opportunity (before insert) {
             }
          //update the Opportunity Description with the related account Description
         if(opp.AccountId <> null){
-           for(Account acc : accList){
+           for(Account acc : accMap.values()){
                if(acc.Id == opp.AccountId){
                    opp.Description = acc.Description;
                 }
