@@ -5,7 +5,7 @@ Develop an Apex Trigger on Opportunity so that When any Opportunity Is Created a
 if the Discount & Amount Field is not blank then Calculate the discount and 
 store it in the  Discounted Price Field.
 */
-trigger OpportnityTrigger2 on SOBJECT (before insert) {
+trigger OpportnityTrigger2 on SOBJECT (before insert, after insert) {
     Switch on Trigger.operationType{
         when BEFORE_INSERT{
             TriggerHandler.OpportunityBeforeInsert(Trigger.new);
